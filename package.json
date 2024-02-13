@@ -1,0 +1,27 @@
+{
+  "name": "platformatic-pg-hooks",
+  "version": "0.0.1",
+  "main": "index.js",
+  "bin": {
+    "create-platformatic-pg-hooks": "./cli/create.js",
+    "start-platformatic-pg-hooks": "./cli/start.js"
+  },
+  "scripts": {
+    "build:config": "node lib/schema.js | json2ts > config.d.ts"
+  },
+  "devDependencies": {
+    "fastify": "^4.26.0"
+  },
+  "dependencies": {
+    "@platformatic/config": "^1.21.1",
+    "@platformatic/service": "^1.21.1",
+    "json-schema-to-typescript": "^13.0.0",
+    "pino": "^8.0.0",
+    "pino-pretty": "^10.0.0",
+    "minimist": "^1.2.0",
+    "platformatic": "^1.21.1"
+  },
+  "engines": {
+    "node": "^18.8.0 || >=20.6.0"
+  }
+}

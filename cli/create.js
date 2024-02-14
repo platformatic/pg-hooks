@@ -6,13 +6,13 @@ const pino = require('pino')
 const pretty = require('pino-pretty')
 const minimist = require('minimist')
 const { Generator } = require('../lib/generator')
-  
+
 async function execute () {
   const logger = pino(pretty({
     translateTime: 'SYS:HH:MM:ss',
     ignore: 'hostname,pid'
   }))
-  
+
   const args = minimist(process.argv.slice(2), {
     string: ['dir', 'port', 'hostname'],
     boolean: ['typescript', 'install', 'plugin', 'git'],
@@ -26,9 +26,9 @@ async function execute () {
       install: true
     }
   })
-  
+
   const generator = new Generator({ logger })
-  
+
   generator.setConfig({
     port: args.port,
     hostname: args.hostname,
@@ -38,10 +38,10 @@ async function execute () {
     initGitRepository: args.git,
     targetDirectory: args.dir
   })
-  
+
   await generator.run()
-  
+
   logger.info('Application created successfully! Run `npm run start` to start an application.')
 }
-  
+
 execute()

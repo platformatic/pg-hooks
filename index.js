@@ -10,12 +10,12 @@ async function stackable (fastify, opts) {
   await fastify.register(platformaticDB, opts)
 }
 
-stackable.configType = 'platformatic-pg-hooks-app'
+stackable.configType = 'plt-pg-hooks'
 stackable.schema = schema
 stackable.Generator = Generator
 stackable.configManagerConfig = {
   schema,
-  envWhitelist: ['PORT', 'HOSTNAME'],
+  envWhitelist: ['PORT', 'HOSTNAME', 'DATABASE_URL'],
   allowToWatch: ['.env'],
   schemaOptions: {
     useDefaults: true,

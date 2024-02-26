@@ -17,7 +17,7 @@ async function execute () {
     string: ['dir', 'port', 'hostname'],
     boolean: ['typescript', 'install', 'plugin', 'git'],
     default: {
-      dir: join(process.cwd(), 'platformatic-pg-hooks-app'),
+      dir: join(process.cwd(), 'pg-hooks-app'),
       port: 3042,
       hostname: '0.0.0.0',
       plugin: true,

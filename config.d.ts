@@ -367,8 +367,8 @@ export interface PlatformaticPgHooksConfig {
   $schema?: string;
   module?: string;
   hooks?: {
-    lock?: unknown;
-    leaderPoll?: unknown;
+    lock?: number | string;
+    leaderPoll?: number | string;
     [k: string]: unknown;
   };
   [k: string]: unknown;

@@ -20,8 +20,6 @@ async function execute () {
       dir: join(process.cwd(), 'pg-hooks-app'),
       port: 3042,
       hostname: '0.0.0.0',
-      plugin: true,
-      typescript: false,
       git: false,
       install: true
     }
@@ -32,9 +30,6 @@ async function execute () {
   generator.setConfig({
     port: args.port,
     hostname: args.hostname,
-    plugin: args.plugin,
-    tests: args.plugin,
-    typescript: args.typescript,
     initGitRepository: args.git,
     targetDirectory: args.dir
   })

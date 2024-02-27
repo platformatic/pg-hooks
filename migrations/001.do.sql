@@ -28,12 +28,12 @@ CREATE TABLE crons (
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY,
   queue_id INTEGER NOT NULL REFERENCES queues(id),
-  "when" TIMESTAMP NOT NULL,
+  "when" TIMESTAMP DEFAULT NOW(),
   body TEXT,
-  failed BOOLEAN NOT NULL DEFAULT FALSE,
+  failed BOOLEAN DEFAULT FALSE,
   headers JSON,
   sent_at TIMESTAMP,
-  retries INTEGER NOT NULL DEFAULT 0,
+  retries INTEGER DEFAULT 0,
 
   cron_id INTEGER REFERENCES crons(id),
 

@@ -120,6 +120,8 @@ curl --request POST \
 }'
 ```
 
+If you need a refresher on the CRON syntax, check out [crontab.guru](https://crontab.guru).
+
 ## Authorization
 
 `@platformatic/pg-hooks` is built around [`@platformatic/db`](https://docs.platformatic.dev/docs/reference/db/introduction/#platformatic-db),

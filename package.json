@@ -21,7 +21,7 @@
     "@platformatic/config": "^1.21.1",
     "@platformatic/db": "^1.21.1",
     "cron-parser": "^4.9.0",
-    "json-schema-to-typescript": "^13.0.0",
+    "json-schema-to-typescript": "^14.0.0",
     "minimist": "^1.2.0"
   },
   "engines": {

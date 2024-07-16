@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@matteo.collina/tspl": "^0.1.1",
-    "borp": "^0.15.0",
+    "borp": "^0.16.0",
     "fastify": "^4.26.0",
     "platformatic": "^1.23.0",
     "standard": "^17.1.0"

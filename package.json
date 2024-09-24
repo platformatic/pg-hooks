@@ -18,7 +18,7 @@
     "standard": "^17.1.0"
   },
   "dependencies": {
-    "@platformatic/config": "^1.21.1",
+    "@platformatic/config": "^2.0.0",
     "@platformatic/db": "^1.21.1",
     "cron-parser": "^4.9.0",
     "json-schema-to-typescript": "^15.0.0",

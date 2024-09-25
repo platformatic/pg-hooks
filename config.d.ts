@@ -48,7 +48,13 @@ export interface PlatformaticPgHooksConfig {
     logger?:
       | boolean
       | {
-          level?: string;
+          level: (
+            | ("fatal" | "error" | "warn" | "info" | "debug" | "trace" | "silent")
+            | {
+                [k: string]: unknown;
+              }
+          ) &
+            string;
           transport?:
             | {
                 target?: string;
@@ -78,6 +84,9 @@ export interface PlatformaticPgHooksConfig {
           };
           [k: string]: unknown;
         };
+    loggerInstance?: {
+      [k: string]: unknown;
+    };
     serializerOpts?: {
       schema?: {
         [k: string]: unknown;
@@ -97,7 +106,9 @@ export interface PlatformaticPgHooksConfig {
     requestIdLogLabel?: string;
     jsonShorthand?: boolean;
     trustProxy?: boolean | string | string[] | number;
+    http2?: boolean;
     https?: {
+      allowHTTP1?: boolean;
       key:
         | string
         | {
@@ -226,6 +237,10 @@ export interface PlatformaticPgHooksConfig {
                   [k: string]: boolean;
                 };
           };
+          ignoreRoutes?: {
+            method: string;
+            path: string;
+          }[];
           enabled?: boolean | string;
           /**
            * Base URL for generated Platformatic DB routes
@@ -261,6 +276,10 @@ export interface PlatformaticPgHooksConfig {
      * The user metadata key to store user roles
      */
     roleKey?: string;
+    /**
+     * The user metadata path to store user roles
+     */
+    rolePath?: string;
     /**
      * The role name for anonymous users
      */
@@ -335,10 +354,16 @@ export interface PlatformaticPgHooksConfig {
         port?: number | string;
         hostname?: string;
         endpoint?: string;
-        server?: "own" | "parent";
+        server?: "own" | "parent" | "hide";
+        defaultMetrics?: {
+          enabled: boolean;
+        };
         auth?: {
           username: string;
           password: string;
+        };
+        labels?: {
+          [k: string]: string;
         };
       };
   plugins?: {
@@ -352,6 +377,9 @@ export interface PlatformaticPgHooksConfig {
     path?: string;
     schema?: string;
     url?: string;
+    fullResponse?: boolean;
+    fullRequest?: boolean;
+    validateResponse?: boolean;
   }[];
   watch?:
     | {

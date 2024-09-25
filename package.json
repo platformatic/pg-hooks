@@ -7,24 +7,25 @@
     "start-platformatic-pg-hooks": "./cli/start.js"
   },
   "scripts": {
-    "build:config": "node lib/schema.js | json2ts > config.d.ts",
+    "build:config": "node lib/schema.js > schema.json && json2ts > config.d.ts < schema.json",
+    "build": "npm run build:config",
     "test": "standard && borp --concurrency 1"
   },
   "devDependencies": {
     "@matteo.collina/tspl": "^0.1.1",
     "borp": "^0.17.0",
-    "fastify": "^4.26.0",
-    "platformatic": "^1.23.0",
+    "fastify": "^5.0.0",
+    "platformatic": "^2.0.0",
     "standard": "^17.1.0"
   },
   "dependencies": {
-    "@platformatic/config": "^1.21.1",
-    "@platformatic/db": "^1.21.1",
+    "@platformatic/config": "^2.1.0",
+    "@platformatic/db": "^2.1.0",
     "cron-parser": "^4.9.0",
     "json-schema-to-typescript": "^15.0.0",
     "minimist": "^1.2.0"
   },
   "engines": {
-    "node": "^18.8.0 || >=20.6.0"
+    "node": ">= 20.16.0"
   }
 }

@@ -1,7 +1,7 @@
 'use strict'
 
-const { platformaticDB } = require('@platformatic/db')
-const { buildServer } = require('@platformatic/service')
+const { platformaticDB, DbStackable } = require('@platformatic/db')
+const { buildServer, buildStackable } = require('@platformatic/service')
 const { schema } = require('./lib/schema')
 const { Generator } = require('./lib/generator')
 const { join } = require('path')
@@ -40,6 +40,10 @@ function _buildServer (opts) {
   return buildServer(opts, stackable)
 }
 
+async function buildPgHooksStackable (opts) {
+  return buildStackable(opts, stackable, DbStackable)
+}
+
 // break Fastify encapsulation
 stackable[Symbol.for('skip-override')] = true
 
@@ -47,3 +51,4 @@ module.exports = stackable
 module.exports.schema = schema
 module.exports.Generator = Generator
 module.exports.buildServer = _buildServer
+module.exports.buildStackable = buildPgHooksStackable

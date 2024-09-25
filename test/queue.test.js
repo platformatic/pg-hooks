@@ -1,6 +1,7 @@
 'use strict'
 
-const { buildServer, adminSecret } = require('./helper')
+const { buildServer, adminSecret, getConfig } = require('./helper')
+const { buildStackable } = require('..')
 const { test } = require('node:test')
 const { once, EventEmitter } = require('events')
 const tspl = require('@matteo.collina/tspl')
@@ -387,6 +388,95 @@ test('`text plain` content type header in the Queue', async (t) => {
     })
     const body = res.json()
     plan.strictEqual(res.statusCode, 200)
+    const { data } = body
+    const when = new Date(data.saveMessage.when)
+    plan.strictEqual(when.getTime() - now >= 0, true)
+  }
+
+  await p
+})
+
+test('happy path w buildStackable', async (t) => {
+  const plan = tspl(t, { plan: 5 })
+  const ee = new EventEmitter()
+
+  const { config } = await getConfig()
+  const server = await buildStackable({ config })
+
+  await server.start()
+  t.after(() => server.stop())
+
+  const target = Fastify()
+  target.post('/', async (req, reply) => {
+    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    ee.emit('called')
+    return { ok: true }
+  })
+
+  t.after(() => target.close())
+  await target.listen({ port: 0 })
+  const targetUrl = `http://localhost:${target.server.address().port}`
+
+  let queueId
+  {
+    const res = await server.inject({
+      method: 'POST',
+      url: '/graphql',
+      headers: {
+        'X-PLATFORMATIC-ADMIN-SECRET': adminSecret
+      },
+      payload: {
+        query: `
+          mutation($callbackUrl: String!) {
+            saveQueue(input: { name: "test", callbackUrl: $callbackUrl, method: "POST" }) {
+              id
+            }
+          }
+        `,
+        variables: {
+          callbackUrl: targetUrl
+        }
+      }
+    })
+    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    const { data } = body
+    queueId = data.saveQueue.id
+    plan.strictEqual(queueId, '1')
+  }
+
+  const p = once(ee, 'called')
+  {
+    const msg = JSON.stringify({
+      message: 'HELLO FOLKS!'
+    })
+    const now = Date.now()
+    const query = `
+      mutation($body: String!, $queueId: ID) {
+        saveMessage(input: { queueId: $queueId, headers: "{ \\"content-type\\": \\"application/json\\" }", body: $body  }) {
+          id
+          when
+        }
+      }
+    `
+
+    const res = await server.inject({
+      method: 'POST',
+      url: '/graphql',
+      headers: {
+        'X-PLATFORMATIC-ADMIN-SECRET': adminSecret
+      },
+      payload: {
+        query,
+        variables: {
+          body: msg,
+          queueId
+        }
+      }
+    })
+    const body = JSON.parse(res.body)
+    plan.strictEqual(res.statusCode, 200)
+
     const { data } = body
     const when = new Date(data.saveMessage.when)
     plan.strictEqual(when.getTime() - now >= 0, true)

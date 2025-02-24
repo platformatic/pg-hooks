@@ -6,8 +6,8 @@ const { once, EventEmitter } = require('events')
 const tspl = require('@matteo.collina/tspl')
 const Fastify = require('fastify')
 
-test('happy path', async (t) => {
-  const plan = tspl(t, { plan: 6 })
+test('happy path', { only: true }, async (t) => {
+  const plan = tspl(t, { plan: 9 })
   const ee = new EventEmitter()
   const server = await buildServer(t)
 
@@ -106,6 +106,12 @@ test('happy path', async (t) => {
 
   const p2 = once(ee, 'called')
   await p2
+  const messages = await server.platformatic.entities.message.find()
+  plan.equal(messages.length, 2)
+  const sentMessage = messages.filter((m) => m.sentAt !== null)[0]
+  const unsentMessage = messages.filter((m) => m.sentAt === null)[0]
+  plan.strictEqual(sentMessage.queueId, Number(queueId))
+  plan.strictEqual(unsentMessage.queueId, Number(queueId))
 })
 
 test('invalid cron expression', async (t) => {

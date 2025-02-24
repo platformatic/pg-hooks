@@ -6,7 +6,7 @@ const { once, EventEmitter } = require('events')
 const tspl = require('@matteo.collina/tspl')
 const Fastify = require('fastify')
 
-test('happy path', { only: true }, async (t) => {
+test('happy path', async (t) => {
   const plan = tspl(t, { plan: 9 })
   const ee = new EventEmitter()
   const server = await buildServer(t)

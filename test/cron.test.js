@@ -106,6 +106,8 @@ test('happy path', async (t) => {
 
   const p2 = once(ee, 'called')
   await p2
+
+  // We must have one sent and one scheduled message
   const messages = await server.platformatic.entities.message.find()
   plan.equal(messages.length, 2)
   const sentMessage = messages.filter((m) => m.sentAt !== null)[0]

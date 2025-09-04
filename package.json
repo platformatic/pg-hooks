@@ -11,7 +11,7 @@
     "build": "node -e 'import {schema} from \"./lib/schema.js\"; console.log(JSON.stringify(schema, null, 2))' > schema.json && json2ts > config.d.ts < schema.json",
     "lint": "eslint --cache",
     "test": "node --test --test-reporter=cleaner-spec-reporter --test-concurrency=1 --test-timeout=300000 test/*.test.js",
-    "ci": "npm run lint && npm run test:ci",
+    "ci": "pnpm run lint && pnpm run test",
     "postpublish": "git push origin && git push origin -f --tags"
   },
   "dependencies": {

@@ -1,20 +1,16 @@
 import { BaseCapability } from '@platformatic/basic'
+import { ConfigurationOptions } from '@platformatic/foundation'
 import { BaseGenerator } from '@platformatic/generators'
-import {
-  ApplicationCapability,
-  ServerInstance as ApplicationInstance,
-  ConfigurationOptions
-} from '@platformatic/service'
+import { ServiceCapability, ServerInstance as ServiceServerInstance } from '@platformatic/service'
 import { JSONSchemaType } from 'ajv'
 import { FastifyInstance } from 'fastify'
 import { PlatformaticPgHooksConfiguration } from './config'
 
-export { PlatformaticService } from '@platformatic/service'
 export { PlatformaticPgHooksConfiguration } from './config'
 
-export type PgHooksCapability = ApplicationCapability<PlatformaticPgHooksConfiguration>
+export type PgHooksCapability = ServiceCapability<PlatformaticPgHooksConfiguration>
 
-export type ServerInstance = ApplicationInstance<PlatformaticPgHooksConfiguration>
+export type ServerInstance = ServiceServerInstance<PlatformaticPgHooksConfiguration>
 
 export function create (
   root: string,

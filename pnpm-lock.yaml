@@ -14,6 +14,9 @@ importers:
       '@platformatic/foundation':
         specifier: ^3.0.0
         version: 3.0.0
+      '@platformatic/service':
+        specifier: ^3.0.0
+        version: 3.0.0(typescript@5.9.2)
       cron-parser:
         specifier: ^5.0.3
         version: 5.3.1

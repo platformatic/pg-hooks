@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@platformatic/db": "^3.0.0",
+    "@platformatic/service": "^3.0.0",
     "@platformatic/foundation": "^3.0.0",
     "cron-parser": "^5.0.3"
   },

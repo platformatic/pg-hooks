@@ -1,20 +1,17 @@
-'use strict'
+import { EventEmitter, once } from 'events'
+import Fastify from 'fastify'
+import { deepStrictEqual } from 'node:assert'
+import { test } from 'node:test'
+import { adminSecret, createApplication } from './helper.js'
 
-const { buildServer, adminSecret } = require('./helper')
-const { test } = require('node:test')
-const { once, EventEmitter } = require('events')
-const { equal, deepEqual } = require('node:assert/strict')
-const Fastify = require('fastify')
-const same = deepEqual
-
-test('happy path', async (t) => {
+test('happy path', async t => {
   const ee = new EventEmitter()
-  const server1 = await buildServer(t)
-  const server2 = await buildServer(t)
+  const server1 = await createApplication(t)
+  const server2 = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    same(req.body, { message: 'HELLO FOLKS!' }, 'message is equal')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is equal')
     ee.emit('called')
     return { ok: true }
   })
@@ -44,11 +41,11 @@ test('happy path', async (t) => {
         }
       }
     })
-    equal(res.statusCode, 200)
-    const body = res.json()
+    deepStrictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    equal(queueId, '1')
+    deepStrictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -80,25 +77,25 @@ test('happy path', async (t) => {
         }
       }
     })
-    const body = res.json()
-    equal(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    deepStrictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    equal(when.getTime() - now >= 0, true)
+    deepStrictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('re-election', async (t) => {
+test('re-election', async t => {
   const ee = new EventEmitter()
-  const server1 = await buildServer(t)
-  const server2 = await buildServer(t)
+  const server1 = await createApplication(t)
+  const server2 = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    same(req.body, { message: 'HELLO FOLKS!' }, 'message is equal')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is equal')
     ee.emit('called')
     return { ok: true }
   })
@@ -128,11 +125,11 @@ test('re-election', async (t) => {
         }
       }
     })
-    equal(res.statusCode, 200)
-    const body = res.json()
+    deepStrictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    equal(queueId, '1')
+    deepStrictEqual(queueId, '1')
   }
 
   await server1.close()
@@ -166,12 +163,12 @@ test('re-election', async (t) => {
         }
       }
     })
-    const body = res.json()
-    equal(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    deepStrictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    equal(when.getTime() - now >= 0, true)
+    deepStrictEqual(when.getTime() - now >= 0, true)
   }
 
   await p

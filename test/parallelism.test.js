@@ -1,15 +1,12 @@
-'use strict'
+import { EventEmitter, once } from 'events'
+import Fastify from 'fastify'
+import { ok, strictEqual } from 'node:assert'
+import { test } from 'node:test'
+import { adminSecret, createApplication } from './helper.js'
 
-const { buildServer, adminSecret } = require('./helper')
-const { test } = require('node:test')
-const { once, EventEmitter } = require('events')
-const tspl = require('@matteo.collina/tspl')
-const Fastify = require('fastify')
-
-test('happy path', async (t) => {
-  const plan = tspl(t, { plan: 5 })
+test('happy path', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   const p = once(ee, 'called')
@@ -24,7 +21,7 @@ test('happy path', async (t) => {
       ee.emit('called')
     }
 
-    plan.ok('request completed')
+    ok('request completed')
     return { ok: true }
   })
 
@@ -53,11 +50,11 @@ test('happy path', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   {
@@ -79,17 +76,20 @@ test('happy path', async (t) => {
       payload: {
         query,
         variables: {
-          messages: [{
-            body: JSON.stringify({ message: 'HELLO FOLKS!' }),
-            queueId
-          }, {
-            body: JSON.stringify({ message: 'HELLO FOLKS2!' }),
-            queueId
-          }]
+          messages: [
+            {
+              body: JSON.stringify({ message: 'HELLO FOLKS!' }),
+              queueId
+            },
+            {
+              body: JSON.stringify({ message: 'HELLO FOLKS2!' }),
+              queueId
+            }
+          ]
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
+    strictEqual(res.statusCode, 200)
   }
 
   await p

@@ -13,46 +13,25 @@ Features:
 
 ![Architecture](./architecture.png)
 
-You can install `@platformatic/pg-hooks` via the [Platformatic Marketplace](https://marketplace.platformatic.dev/).
-
-## Standalone Install & Setup
-
-You can generate a standalone application with: 
-
-```bash
-npx --package @platformatic/pg-hooks -c create-platformatic-pg-hooks
-cd pg-hooks-app
-npm i
-npx plt start
-```
-
-You can then edit your `.env` file and configure the `DB_URL` env variable
-to select a PostgreSQL database.
-
-Explore both the OpenAPI and GraphQL definitions that are now available at [http://127.0.0.1:3042](http://127.0.0.1:3042).
-
 ## API Tutorial
 
 To verify everything is working correctly, we will do a short tutorial
 
 ### Create a target service
 
-Run:
+Create a new Platformatic application with the Kafka hooks package using [Wattpm](https://platformatic.io/docs/wattpm):
 
 ```bash
-npx @platformatic/service create
+npx wattpm@latest create
 ```
 
-This will create a [Platformatic Service](https://docs.platformatic.dev/docs/reference/service/introduction),
-which is essentially a [Fastify](https://fastify.dev) template.
+And select `@platformatic/service` from the list of available packages and name your application `target`.
 
-Now, create a `platformatic-service/routes/hook.js` file with the following content:
+
+Now, create a `services/target/routes/hook.js` file with the following content:
 
 ```js
-/// <reference path="../global.d.ts" />
-'use strict'
-/** @param {import('fastify').FastifyInstance} fastify */
-module.exports = async function (fastify, opts) {
+export async function (fastify, opts) {
   fastify.post('/receive-my-hook', async (request, reply) => {
     request.log.info({ body: request.body }, 'Received hook')
     return 'ok'
@@ -60,9 +39,9 @@ module.exports = async function (fastify, opts) {
 }
 ```
 
-Then, edit `platformatic-service/.env` and `platformatic-service/.env.sample` so that `PORT=3001`
+Then, edit the `.env` file so that `PORT=3001`
 
-Run `plt start` to start your app. To verify that your applications is working as expected, in another shell run:
+Run `wattpm start` to start your app. To verify that your applications is working as expected, in another shell run:
 
 ```bash
 curl -X POST -H 'Content-Type: application/json' -d '{ "hello": "world" }' http://127.0.0.1:3001/receive-my-hook
@@ -124,8 +103,8 @@ If you need a refresher on the CRON syntax, check out [crontab.guru](https://cro
 
 ## Authorization
 
-`@platformatic/pg-hooks` is built around [`@platformatic/db`](https://docs.platformatic.dev/docs/reference/db/introduction/#platformatic-db),
-which means that authorization can be set up with its [strategies](https://docs.platformatic.dev/docs/reference/db/authorization/introduction).
+`@platformatic/pg-hooks` is built around [`@platformatic/db`](https://docs.platformatic.dev/docs/reference/db/overview),
+which means that authorization can be set up with its [strategies](https://docs.platformatic.dev/docs/reference/db/authorization/strategies).
 
 The following will configure `@platformatic/pg-hooks` to only accept schedule requests by an admin that knowns the
 `PLT_ADMIN_SECRET` env variable:

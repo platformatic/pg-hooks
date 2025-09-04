@@ -1,19 +1,16 @@
-'use strict'
+import { deepStrictEqual, equal, strictEqual } from 'assert'
+import { EventEmitter, once } from 'events'
+import Fastify from 'fastify'
+import { test } from 'node:test'
+import { adminSecret, createApplication } from './helper.js'
 
-const { buildServer, adminSecret } = require('./helper')
-const { test } = require('node:test')
-const { once, EventEmitter } = require('events')
-const tspl = require('@matteo.collina/tspl')
-const Fastify = require('fastify')
-
-test('happy path', async (t) => {
-  const plan = tspl(t, { plan: 9 })
+test('happy path', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -43,11 +40,11 @@ test('happy path', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p1 = once(ee, 'called')
@@ -81,11 +78,11 @@ test('happy path', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
-    plan.strictEqual(data.saveCron.schedule, schedule)
+    strictEqual(data.saveCron.schedule, schedule)
 
     /*
      * Add items
@@ -95,10 +92,10 @@ test('happy path', async (t) => {
      *       when
      *     }
      *
-     * plan.strictEqual(data.saveCron.items.length, 1)
+     * strictEqual(data.saveCron.items.length, 1)
      * const item = data.saveCron.items[0]
      * const when = new Date(item.when)
-     * plan.strictEqual(when.getTime() - now <= 1000, true)
+     * strictEqual(when.getTime() - now <= 1000, true)
      */
   }
 
@@ -108,17 +105,16 @@ test('happy path', async (t) => {
   await p2
 
   // We must have one sent and one scheduled message
-  const messages = await server.platformatic.entities.message.find()
-  plan.equal(messages.length, 2)
-  const sentMessage = messages.filter((m) => m.sentAt !== null)[0]
-  const unsentMessage = messages.filter((m) => m.sentAt === null)[0]
-  plan.strictEqual(sentMessage.queueId, Number(queueId))
-  plan.strictEqual(unsentMessage.queueId, Number(queueId))
+  const messages = await server.getApplication().platformatic.entities.message.find()
+  equal(messages.length, 2)
+  const sentMessage = messages.filter(m => m.sentAt !== null)[0]
+  const unsentMessage = messages.filter(m => m.sentAt === null)[0]
+  strictEqual(sentMessage.queueId, Number(queueId))
+  strictEqual(unsentMessage.queueId, Number(queueId))
 })
 
-test('invalid cron expression', async (t) => {
-  const plan = tspl(t, { plan: 4 })
-  const server = await buildServer(t)
+test('invalid cron expression', async t => {
+  const server = await createApplication(t)
 
   const targetUrl = 'http://localhost:4242'
 
@@ -143,11 +139,11 @@ test('invalid cron expression', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const schedule = 'hello world'
@@ -180,8 +176,8 @@ test('invalid cron expression', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
-    plan.deepStrictEqual(body.errors[0].message, 'Invalid cron expression')
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
+    deepStrictEqual(body.errors[0].message, 'Invalid cron expression')
   }
 })

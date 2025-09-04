@@ -1,7 +1,32 @@
 {
   "name": "@platformatic/pg-hooks",
   "version": "0.3.0",
+  "description": "PostgreSQL based webhooks system",
+  "homepage": "https://github.com/platformatic/pg-hooks",
+  "author": "Platformatic Inc. <oss@platformatic.dev> (https://platformatic.dev)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platformatic/pg-hooks.git"
+  },
+  "keywords": [
+    "postgresql",
+    "hooks"
+  ],
+  "bugs": {
+    "url": "https://github.com/platformatic/pg-hooks/issues"
+  },
+  "private": false,
+  "files": [
+    "config.d.ts",
+    "index.js",
+    "index.d.ts",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
   "main": "index.js",
+  "types": "index.d.ts",
   "type": "module",
   "bin": {
     "create-platformatic-pg-hooks": "./cli/create.js",
@@ -18,6 +43,7 @@
     "@platformatic/db": "^3.0.0",
     "@platformatic/service": "^3.0.0",
     "@platformatic/foundation": "^3.0.0",
+    "fastify-plugin": "^5.0.0",
     "cron-parser": "^5.0.3"
   },
   "devDependencies": {

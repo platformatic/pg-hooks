@@ -1,54 +1,24 @@
-'use strict'
+import { create as createDatabase, transform as databaseTransform, platformaticDatabase } from '@platformatic/db'
+import { resolve } from 'node:path'
+import { plugin } from './lib/plugin.js'
+import { schema } from './lib/schema.js'
 
-const { platformaticDB, DbStackable } = require('@platformatic/db')
-const { buildServer, buildStackable } = require('@platformatic/service')
-const { schema } = require('./lib/schema')
-const { Generator } = require('./lib/generator')
-const { join } = require('path')
-
-async function stackable (fastify, opts) {
-  await fastify.register(platformaticDB, opts)
+export async function pgHooks (app, capability) {
+  await platformaticDatabase(app, capability)
+  await app.register(plugin, capability)
 }
 
-stackable.configType = 'plt-pg-hooks'
-stackable.schema = schema
-stackable.Generator = Generator
-stackable.configManagerConfig = {
-  schema,
-  envWhitelist: ['PORT', 'HOSTNAME', 'DATABASE_URL', 'DB_URL'],
-  allowToWatch: ['.env'],
-  schemaOptions: {
-    useDefaults: true,
-    coerceTypes: true,
-    allErrors: true,
-    strict: false
-  },
-  async transformConfig () {
-    this.current.migrations = {
-      dir: join(__dirname, 'migrations'),
-      autoApply: true
-    }
-    this.current.plugins ||= {}
-    this.current.plugins.paths ||= []
-    this.current.plugins.paths.push(join(__dirname, 'lib', 'plugin.js'))
+export async function transform (config, ...args) {
+  config = await databaseTransform(config, ...args)
 
-    return platformaticDB.configManagerConfig.transformConfig.call(this)
-  }
+  config.migrations = { dir: resolve(import.meta.dirname, 'migrations'), autoApply: true }
+
+  return config
 }
 
-function _buildServer (opts) {
-  return buildServer(opts, stackable)
+export async function create (configOrRoot, sourceOrConfig, context) {
+  return createDatabase(configOrRoot, sourceOrConfig, { schema, applicationFactory: pgHooks, transform, ...context })
 }
 
-async function buildPgHooksStackable (opts) {
-  return buildStackable(opts, stackable, DbStackable)
-}
-
-// break Fastify encapsulation
-stackable[Symbol.for('skip-override')] = true
-
-module.exports = stackable
-module.exports.schema = schema
-module.exports.Generator = Generator
-module.exports.buildServer = _buildServer
-module.exports.buildStackable = buildPgHooksStackable
+export { Generator } from './lib/generator.js'
+export { packageJson, schema, schemaComponents, version } from './lib/schema.js'

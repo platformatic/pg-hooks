@@ -1,20 +1,16 @@
-'use strict'
+import { EventEmitter, once } from 'events'
+import Fastify from 'fastify'
+import { deepStrictEqual, strictEqual } from 'node:assert'
+import { test } from 'node:test'
+import { adminSecret, createApplication } from './helper.js'
 
-const { buildServer, adminSecret, getConfig } = require('./helper')
-const { buildStackable } = require('..')
-const { test } = require('node:test')
-const { once, EventEmitter } = require('events')
-const tspl = require('@matteo.collina/tspl')
-const Fastify = require('fastify')
-
-test('happy path', async (t) => {
-  const plan = tspl(t, { plan: 5 })
+test('happy path', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -44,11 +40,11 @@ test('happy path', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -80,25 +76,24 @@ test('happy path', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('`text plain` content type', async (t) => {
-  const plan = tspl(t, { plan: 5 })
+test('`text plain` content type', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, 'HELLO FOLKS!', 'message is plan.strictEqual')
+    deepStrictEqual(req.body, 'HELLO FOLKS!', 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -128,11 +123,11 @@ test('`text plain` content type', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -160,25 +155,23 @@ test('`text plain` content type', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('future when', async (t) => {
-  const plan = tspl(t, { plan: 6 })
-
+test('future when', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called', Date.now())
     return { ok: true }
   })
@@ -208,11 +201,11 @@ test('future when', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -248,20 +241,19 @@ test('future when', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
-    plan.strictEqual(data.saveMessage.when, afterOneSecond)
+    strictEqual(data.saveMessage.when, afterOneSecond)
   }
 
   const [calledAt] = await p
-  plan.strictEqual(calledAt - now >= 1000, true)
+  strictEqual(calledAt - now >= 1000, true)
 })
 
-test('only admins can write', async (t) => {
-  const plan = tspl(t, { plan: 4 })
-  const server = await buildServer(t)
+test('only admins can write', async t => {
+  const server = await createApplication(t)
 
   const targetUrl = 'http://localhost:4242'
 
@@ -282,9 +274,9 @@ test('only admins can write', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
-    plan.strictEqual(body.errors[0].message, 'operation not allowed')
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(body.errors[0].message, 'operation not allowed')
   }
 
   {
@@ -311,20 +303,19 @@ test('only admins can write', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
-    plan.strictEqual(body.errors[0].message, 'operation not allowed')
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
+    strictEqual(body.errors[0].message, 'operation not allowed')
   }
 })
 
-test('`text plain` content type header in the Queue', async (t) => {
-  const plan = tspl(t, { plan: 5 })
+test('`text plain` content type header in the Queue', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, 'HELLO FOLKS!', 'message is plan.strictEqual')
+    deepStrictEqual(req.body, 'HELLO FOLKS!', 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -354,11 +345,11 @@ test('`text plain` content type header in the Queue', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -386,29 +377,27 @@ test('`text plain` content type header in the Queue', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('happy path w buildStackable', async (t) => {
-  const plan = tspl(t, { plan: 5 })
+test('happy path w buildStackable', async t => {
   const ee = new EventEmitter()
 
-  const { config } = await getConfig()
-  const server = await buildStackable({ config })
+  const server = await createApplication(t)
 
   await server.start()
   t.after(() => server.stop())
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -438,11 +427,11 @@ test('happy path w buildStackable', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
+    strictEqual(res.statusCode, 200)
     const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   const p = once(ee, 'called')
@@ -475,11 +464,11 @@ test('happy path w buildStackable', async (t) => {
       }
     })
     const body = JSON.parse(res.body)
-    plan.strictEqual(res.statusCode, 200)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p

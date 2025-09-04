@@ -1,20 +1,17 @@
-'use strict'
+import { EventEmitter, once } from 'events'
+import Fastify from 'fastify'
+import { deepStrictEqual, strictEqual } from 'node:assert'
+import { test } from 'node:test'
+import { adminSecret, createApplication } from './helper.js'
 
-const { buildServer, adminSecret } = require('./helper')
-const { test } = require('node:test')
-const { once, EventEmitter } = require('events')
-const Fastify = require('fastify')
-const tspl = require('@matteo.collina/tspl')
-
-test('retries on failure', async (t) => {
-  const plan = tspl(t, { plan: 6 })
+test('retries on failure', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   let called = 0
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     if (called++ === 0) {
       throw new Error('first call')
@@ -47,11 +44,11 @@ test('retries on failure', async (t) => {
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '1')
+    strictEqual(queueId, '1')
   }
 
   let p = once(ee, 'called')
@@ -83,12 +80,12 @@ test('retries on failure', async (t) => {
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
@@ -96,14 +93,13 @@ test('retries on failure', async (t) => {
   await p
 })
 
-test('send a message to the dead letter queue after retries are completed', async (t) => {
-  const plan = tspl(t, { plan: 9 })
+test('send a message to the dead letter queue after retries are completed', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     throw new Error('This is down')
   })
 
@@ -113,7 +109,7 @@ test('send a message to the dead letter queue after retries are completed', asyn
 
   const deadLetterTarget = Fastify()
   deadLetterTarget.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -143,11 +139,11 @@ test('send a message to the dead letter queue after retries are completed', asyn
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     deadLetterQueue = data.saveQueue.id
-    plan.strictEqual(deadLetterQueue, '1')
+    strictEqual(deadLetterQueue, '1')
   }
 
   let queueId
@@ -172,11 +168,11 @@ test('send a message to the dead letter queue after retries are completed', asyn
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '2')
+    strictEqual(queueId, '2')
   }
 
   const p = once(ee, 'called')
@@ -208,25 +204,24 @@ test('send a message to the dead letter queue after retries are completed', asyn
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('send a message to the dead letter queue after retries are completed without content-type', async (t) => {
-  const plan = tspl(t, { plan: 9 })
+test('send a message to the dead letter queue after retries are completed without content-type', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     reply.status(500).send('This is down')
   })
 
@@ -236,7 +231,7 @@ test('send a message to the dead letter queue after retries are completed withou
 
   const deadLetterTarget = Fastify()
   deadLetterTarget.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -266,11 +261,11 @@ test('send a message to the dead letter queue after retries are completed withou
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     deadLetterQueue = data.saveQueue.id
-    plan.strictEqual(deadLetterQueue, '1')
+    strictEqual(deadLetterQueue, '1')
   }
 
   let queueId
@@ -295,11 +290,11 @@ test('send a message to the dead letter queue after retries are completed withou
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '2')
+    strictEqual(queueId, '2')
   }
 
   const p = once(ee, 'called')
@@ -331,25 +326,24 @@ test('send a message to the dead letter queue after retries are completed withou
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p
 })
 
-test('send a message to the dead letter queue after retries are completed with text/plain', async (t) => {
-  const plan = tspl(t, { plan: 9 })
+test('send a message to the dead letter queue after retries are completed with text/plain', async t => {
   const ee = new EventEmitter()
-  const server = await buildServer(t)
+  const server = await createApplication(t)
 
   const target = Fastify()
   target.post('/', (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     reply.status(500).headers({ 'content-type': 'text/plain' }).send('This is down')
   })
 
@@ -359,7 +353,7 @@ test('send a message to the dead letter queue after retries are completed with t
 
   const deadLetterTarget = Fastify()
   deadLetterTarget.post('/', async (req, reply) => {
-    plan.deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is plan.strictEqual')
+    deepStrictEqual(req.body, { message: 'HELLO FOLKS!' }, 'message is strictEqual')
     ee.emit('called')
     return { ok: true }
   })
@@ -389,11 +383,11 @@ test('send a message to the dead letter queue after retries are completed with t
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     deadLetterQueue = data.saveQueue.id
-    plan.strictEqual(deadLetterQueue, '1')
+    strictEqual(deadLetterQueue, '1')
   }
 
   let queueId
@@ -418,11 +412,11 @@ test('send a message to the dead letter queue after retries are completed with t
         }
       }
     })
-    plan.strictEqual(res.statusCode, 200)
-    const body = res.json()
+    strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
     const { data } = body
     queueId = data.saveQueue.id
-    plan.strictEqual(queueId, '2')
+    strictEqual(queueId, '2')
   }
 
   const p = once(ee, 'called')
@@ -454,12 +448,12 @@ test('send a message to the dead letter queue after retries are completed with t
         }
       }
     })
-    const body = res.json()
-    plan.strictEqual(res.statusCode, 200)
+    const body = JSON.parse(res.body)
+    strictEqual(res.statusCode, 200)
 
     const { data } = body
     const when = new Date(data.saveMessage.when)
-    plan.strictEqual(when.getTime() - now >= 0, true)
+    strictEqual(when.getTime() - now >= 0, true)
   }
 
   await p

@@ -1,59 +1,53 @@
-'use strict'
+import createConnectionPool, { sql } from '@databases/pg'
+import { after, beforeEach } from 'node:test'
+import { Agent, setGlobalDispatcher } from 'undici'
+import { create } from '../index.js'
 
-const { beforeEach, afterEach } = require('node:test')
-const { join } = require('path')
-const { setGlobalDispatcher, Agent } = require('undici')
-const pgHooks = require('..')
-const createConnectionPool = require('@databases/pg')
+setGlobalDispatcher(
+  new Agent({
+    keepAliveTimeout: 10,
+    keepAliveMaxTimeout: 10
+  })
+)
 
-setGlobalDispatcher(new Agent({
-  keepAliveTimeout: 10,
-  keepAliveMaxTimeout: 10
-}))
+export const adminSecret = 'admin-secret'
 
-const adminSecret = 'admin-secret'
+export async function getConfig () {}
 
-async function getConfig () {
-  const config = {}
-  config.module = join(__dirname, '..')
-  config.server = {
-    port: 0,
-    logger: { level: 'error' }
-  }
-  config.db = {
-    connectionString: 'postgres://postgres:postgres@127.0.0.1:5432/postgres'
-  }
-  config.authorization = {
-    adminSecret
-  }
-  config.hooks = {
-    leaderPoll: 1000
-  }
-  return { config }
-}
+export async function createApplication (t) {
+  const server = await create(import.meta.dirname, {
+    server: {
+      port: 0,
+      logger: { level: 'error' }
+    },
+    db: {
+      connectionString: 'postgres://postgres:postgres@127.0.0.1:5432/postgres'
+    },
+    authorization: {
+      adminSecret
+    },
+    hooks: {
+      leaderPoll: 1000
+    }
+  })
 
-async function buildServer (t) {
-  const { config } = await getConfig()
-  const server = await pgHooks.buildServer(config)
-  t.after(() => server.close())
+  t.after(async () => {
+    await server.close()
+  })
+
+  await server.init()
   return server
 }
 
-let pool = null
-beforeEach(cleandb)
-afterEach(async () => {
-  await pool.dispose()
-  pool = null
-})
+let pool
+beforeEach(cleanDatabase)
+after(() => pool.dispose())
 
-async function cleandb () {
-  // TODO reuse the conenction across runs
-  pool = createConnectionPool({
+export async function cleanDatabase () {
+  pool ??= createConnectionPool({
     connectionString: 'postgres://postgres:postgres@127.0.0.1:5432/postgres',
     bigIntMode: 'bigint'
   })
-
-  const sql = createConnectionPool.sql
 
   // TODO use schemas
   try {
@@ -67,11 +61,5 @@ async function cleandb () {
   } catch {}
   try {
     await pool.query(sql`DROP TABLE VERSIONS;`)
-  } catch (err) {
-  }
+  } catch (err) {}
 }
-
-module.exports.getConfig = getConfig
-module.exports.adminSecret = adminSecret
-module.exports.buildServer = buildServer
-module.exports.cleandb = cleandb

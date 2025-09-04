@@ -1,31 +1,62 @@
 {
   "name": "@platformatic/pg-hooks",
   "version": "0.3.0",
+  "description": "PostgreSQL based webhooks system",
+  "homepage": "https://github.com/platformatic/pg-hooks",
+  "author": "Platformatic Inc. <oss@platformatic.dev> (https://platformatic.dev)",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/platformatic/pg-hooks.git"
+  },
+  "keywords": [
+    "postgresql",
+    "hooks"
+  ],
+  "bugs": {
+    "url": "https://github.com/platformatic/pg-hooks/issues"
+  },
+  "private": false,
+  "files": [
+    "config.d.ts",
+    "index.js",
+    "index.d.ts",
+    "lib",
+    "LICENSE",
+    "README.md"
+  ],
   "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
   "bin": {
     "create-platformatic-pg-hooks": "./cli/create.js",
     "start-platformatic-pg-hooks": "./cli/start.js"
   },
   "scripts": {
-    "build:config": "node lib/schema.js > schema.json && json2ts > config.d.ts < schema.json",
-    "build": "npm run build:config",
-    "test": "standard && borp --concurrency 1"
-  },
-  "devDependencies": {
-    "@matteo.collina/tspl": "^0.2.0",
-    "borp": "^0.20.0",
-    "fastify": "^5.0.0",
-    "platformatic": "^2.0.0",
-    "standard": "^17.1.0"
+    "build": "node -e 'import {schema} from \"./lib/schema.js\"; console.log(JSON.stringify(schema, null, 2))' > schema.json && json2ts > config.d.ts < schema.json",
+    "lint": "eslint --cache",
+    "test": "node --test --test-reporter=cleaner-spec-reporter --test-concurrency=1 --test-timeout=300000 test/*.test.js",
+    "ci": "pnpm run lint && pnpm run test",
+    "postpublish": "git push origin && git push origin -f --tags"
   },
   "dependencies": {
-    "@platformatic/config": "^2.1.0",
-    "@platformatic/db": "^2.1.0",
-    "cron-parser": "^5.0.3",
-    "json-schema-to-typescript": "^15.0.0",
-    "minimist": "^1.2.0"
+    "@platformatic/db": "^3.0.0",
+    "@platformatic/service": "^3.0.0",
+    "@platformatic/foundation": "^3.0.0",
+    "fastify-plugin": "^5.0.0",
+    "cron-parser": "^5.0.3"
+  },
+  "devDependencies": {
+    "@databases/pg": "^5.5.0",
+    "c8": "^10.1.3",
+    "cleaner-spec-reporter": "^0.5.0",
+    "eslint": "^9.21.0",
+    "fastify": "^5.3.2",
+    "json-schema-to-typescript": "^15.0.4",
+    "neostandard": "^0.12.1",
+    "undici": "^7.15.0"
   },
   "engines": {
-    "node": ">= 20.16.0"
+    "node": ">= 22.18.0"
   }
 }

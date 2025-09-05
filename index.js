@@ -1,4 +1,5 @@
 import { create as createDatabase, transform as databaseTransform, platformaticDatabase } from '@platformatic/db'
+import fp from 'fastify-plugin'
 import { resolve } from 'node:path'
 import { plugin } from './lib/plugin.js'
 import { schema } from './lib/schema.js'
@@ -17,7 +18,7 @@ export async function transform (config, ...args) {
 }
 
 export async function create (configOrRoot, sourceOrConfig, context) {
-  return createDatabase(configOrRoot, sourceOrConfig, { schema, applicationFactory: pgHooks, transform, ...context })
+  return createDatabase(configOrRoot, sourceOrConfig, { schema, applicationFactory: fp(pgHooks), transform, ...context })
 }
 
 export { Generator } from './lib/generator.js'

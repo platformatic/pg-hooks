@@ -21,7 +21,7 @@ importers:
         specifier: ^5.0.3
         version: 5.3.1
       fastify-plugin:
-        specifier: ^5.0.0
+        specifier: ^5.0.1
         version: 5.0.1
     devDependencies:
       '@databases/pg':

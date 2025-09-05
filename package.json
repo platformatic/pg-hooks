@@ -40,11 +40,11 @@
     "postpublish": "git push origin && git push origin -f --tags"
   },
   "dependencies": {
-    "@platformatic/db": "^3.0.0",
+    "@platformatic/db": "^3.0.2",
+    "@platformatic/foundation": "^3.0.2",
     "@platformatic/service": "^3.0.0",
-    "@platformatic/foundation": "^3.0.0",
-    "fastify-plugin": "^5.0.0",
-    "cron-parser": "^5.0.3"
+    "cron-parser": "^5.0.3",
+    "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
     "@databases/pg": "^5.5.0",

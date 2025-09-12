@@ -23,6 +23,7 @@
     "index.d.ts",
     "lib",
     "migrations",
+    "schema.json",
     "LICENSE",
     "README.md"
   ],

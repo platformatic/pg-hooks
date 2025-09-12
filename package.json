@@ -1,6 +1,6 @@
 {
   "name": "@platformatic/pg-hooks",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "PostgreSQL based webhooks system",
   "homepage": "https://github.com/platformatic/pg-hooks",
   "author": "Platformatic Inc. <oss@platformatic.dev> (https://platformatic.dev)",

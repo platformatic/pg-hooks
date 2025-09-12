@@ -22,16 +22,13 @@
     "index.js",
     "index.d.ts",
     "lib",
+    "migrations",
     "LICENSE",
     "README.md"
   ],
   "main": "index.js",
   "types": "index.d.ts",
   "type": "module",
-  "bin": {
-    "create-platformatic-pg-hooks": "./cli/create.js",
-    "start-platformatic-pg-hooks": "./cli/start.js"
-  },
   "scripts": {
     "build": "node -e 'import {schema} from \"./lib/schema.js\"; console.log(JSON.stringify(schema, null, 2))' > schema.json && json2ts > config.d.ts < schema.json",
     "lint": "eslint --cache",

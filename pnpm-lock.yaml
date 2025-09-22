@@ -38,7 +38,7 @@ importers:
         version: 9.36.0
       fastify:
         specifier: ^5.3.2
-        version: 5.6.0
+        version: 5.6.1
       json-schema-to-typescript:
         specifier: ^15.0.4
         version: 15.0.4
@@ -1576,8 +1576,8 @@ packages:
   fastify-user@1.4.0:
     resolution: {integrity: sha512-VqGa60xX3nFCz2gIJHfdVjDlJIsdJ9bwigDdazaKlZ/lSxsyeXOnxsyxtZ9XeMht2drc6WLUtJ0MMeo1BSvXCg==}
 
-  fastify@5.6.0:
-    resolution: {integrity: sha512-9j2r9TnwNsfGiCKGYT0Voqy244qwcoYM9qvNi/i+F8sNNWDnqUEVuGYNc9GyjldhXmMlJmVPS6gI1LdvjYGRJw==}
+  fastify@5.6.1:
+    resolution: {integrity: sha512-WjjlOciBF0K8pDUPZoGPhqhKrQJ02I8DKaDIfO51EL0kbSMwQFl85cRwhOvmSDWoukNOdTo27gLN549pLCcH7Q==}
 
   fastparallel@2.4.1:
     resolution: {integrity: sha512-qUmhxPgNHmvRjZKBFUNI0oZuuH9OlSIOXmJ98lhKPxMZZ7zS/Fi0wRHOihDSz0R1YiIOjxzOY4bq65YTcdBi2Q==}
@@ -3881,8 +3881,8 @@ snapshots:
       console-table-printer: 2.14.6
       env-schema: 6.0.1
       execa: 9.6.0
-      fastify: 5.6.0
-      fastify-metrics: 12.1.0(fastify@5.6.0)
+      fastify: 5.6.1
+      fastify-metrics: 12.1.0(fastify@5.6.1)
       fastify-plugin: 5.0.1
       fastify-print-routes: 4.1.0
       graphql: 16.11.0
@@ -3928,7 +3928,7 @@ snapshots:
       '@platformatic/foundation': 3.5.1
       change-case-all: 2.1.0
       execa: 9.6.0
-      fastify: 5.6.0
+      fastify: 5.6.1
       pino: 9.11.0
       undici: 7.16.0
 
@@ -3976,7 +3976,7 @@ snapshots:
       env-schema: 6.0.1
       execa: 9.6.0
       fast-json-patch: 3.1.1
-      fastify: 5.6.0
+      fastify: 5.6.1
       fastify-plugin: 5.0.1
       graphql: 16.11.0
       help-me: 5.0.0
@@ -5215,9 +5215,9 @@ snapshots:
     dependencies:
       reusify: 1.1.0
 
-  fastify-metrics@12.1.0(fastify@5.6.0):
+  fastify-metrics@12.1.0(fastify@5.6.1):
     dependencies:
-      fastify: 5.6.0
+      fastify: 5.6.1
       fastify-plugin: 5.0.1
       prom-client: 15.1.3
 
@@ -5237,11 +5237,11 @@ snapshots:
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/jwt': 9.1.0
-      fastify: 5.6.0
+      fastify: 5.6.1
       fastify-plugin: 5.0.1
       get-jwks: 11.0.1
 
-  fastify@5.6.0:
+  fastify@5.6.1:
     dependencies:
       '@fastify/ajv-compiler': 4.0.2
       '@fastify/error': 4.2.0

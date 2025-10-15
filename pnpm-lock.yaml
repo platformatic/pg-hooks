@@ -10,13 +10,13 @@ importers:
     dependencies:
       '@platformatic/db':
         specifier: ^3.0.2
-        version: 3.12.0(typescript@5.9.3)
+        version: 3.13.0(typescript@5.9.3)
       '@platformatic/foundation':
         specifier: ^3.0.2
-        version: 3.12.0
+        version: 3.13.0
       '@platformatic/service':
         specifier: ^3.0.0
-        version: 3.12.0(typescript@5.9.3)
+        version: 3.13.0(typescript@5.9.3)
       cron-parser:
         specifier: ^5.0.3
         version: 5.4.0
@@ -561,71 +561,71 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@platformatic/basic@3.12.0':
-    resolution: {integrity: sha512-uexSrPwcF41TSeEfCDyH1t/4FT/FTTNtFghfXBFqyiSmGKJRlxLlam7h49aqMHEuXeXwRcOD19L2/0a1Lfz2SQ==}
+  '@platformatic/basic@3.13.0':
+    resolution: {integrity: sha512-I1NIm9z6m9w6Qs4qoQf+Jae3giqK7jKoiXeUp9lNyzilzvjAUMrEnCVvifDdGT+JXztWxlfbtPoezEQ+9aFgHg==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/db-authorization@3.12.0':
-    resolution: {integrity: sha512-oaDzQ5gzdsOwMb5dR8PpaFJR1A9cPEIQgq8wI0cMWaqkdISNFhlpr59wNOCkjSWqhOniMaoEYrWWTzJwHaJRDw==}
+  '@platformatic/db-authorization@3.13.0':
+    resolution: {integrity: sha512-YUbR/4kMn6HYWGcMwGhOchR4aX0px9XnuM1JaHxz2LoK5ptCaaHgbHtpsGlmdg7J/9U2wZlBin4PdTxwoRAdBA==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/db-core@3.12.0':
-    resolution: {integrity: sha512-rCAZTc/eife4IOCZc8lnnRBNZ/J3llf7ZDbovf2qFvuXH0vU4sB+3Lx+lMqdIhMYEASXc7klTvvrmFIgPnyunw==}
+  '@platformatic/db-core@3.13.0':
+    resolution: {integrity: sha512-+5mlAvjd0Kv6xleEsxsBsHZpKbNMsl3cPyGaVfBXgIcuJFu23ezK7Mh8MsV0xZDiECqthRvCSxuxyEhtLtBpKw==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/db@3.12.0':
-    resolution: {integrity: sha512-dtfTPGP1U0CLz8X8v7x/DmcDF1woFO+oknRVYd1KHrLMKESVbPx0f+FYPefTonFq/E6UP30cc/rNIPXpr+K6Cw==}
+  '@platformatic/db@3.13.0':
+    resolution: {integrity: sha512-Aoz9H0P/i+KWZ2iZX8wokygzxjwaUMThMcqlLlY6uIzn5w2wBHrzMJP5icZh0F2l1Q49wtucXfCVtifaX8CYNg==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/foundation@3.12.0':
-    resolution: {integrity: sha512-sA8zn96iRtjKUiG2n8425JdquloIZndmmj5drHkF6WC4fqd+VJrKa3HMeHrdF4/XDajjQ6uVkQ3ALaYLfFTAUQ==}
+  '@platformatic/foundation@3.13.0':
+    resolution: {integrity: sha512-7mwU0NkNrb7RU07pCbANPOCQ3RpR89Sk20N7bYLMlVR4q7OdJedwEarEWrd8rgmWlFv2GVwjXMA9IetFhHLqpg==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/generators@3.12.0':
-    resolution: {integrity: sha512-OeceQgymhCIVWmKE+15uAIwZ7eZ0fwKrBiU+RJo8OWmryz1fCAfun78Br1jYn4QXKYJZ66gMJbsh19Q8IIQQVw==}
+  '@platformatic/generators@3.13.0':
+    resolution: {integrity: sha512-ctXWiXZ80R5w8B9WOw1Aq5kCNFqnrOLHR1RwtJdNilaa4NAGZv+bJ3yfqXqTFzrwdASGFBtJ2/K825Y/8cT0kQ==}
     engines: {node: '>=22.19.0'}
 
   '@platformatic/http-metrics@0.2.1':
     resolution: {integrity: sha512-Gy3NHUQT250MrJMlwzcSniVc+71DmCN1BpsuJcBlxyDpNacsH9axNonNWSNJqcWg8WOrv7tS6miBql2cugVuAg==}
 
-  '@platformatic/itc@3.12.0':
-    resolution: {integrity: sha512-vQ//YgImq7k+ZLY7AX8XzuAP/oAPvBKnhtr2fjILPe+gbyA0tf6CQHOZrFFWOgpwd3/kyVnEloJcJIb5xueYiw==}
+  '@platformatic/itc@3.13.0':
+    resolution: {integrity: sha512-JUcaNysWKVxfFARajuD39I0TQV8oeMj5t1T1LeKXmRMlmxGRTs8CaY5OtLhez42/cJV2IsXDZpLmRBoM1c76/Q==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/metrics@3.12.0':
-    resolution: {integrity: sha512-Dq88+FEWuamoo1RAZj46LOCY+gFgg2YvosTU/pn8GUlkIPFIK9reCMxyU8RWXJMPURZCwZ8eyokrKVNwX+3Z3Q==}
+  '@platformatic/metrics@3.13.0':
+    resolution: {integrity: sha512-O3VEZSWzt2f2LiH778zYbO5t2HfjzA6CRLyorxFJRYaqI2I5fLqAb2WvaJlnAAgjDBVN31Hya3/cJdpXS54AQg==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/scalar-theme@3.12.0':
-    resolution: {integrity: sha512-GEIae4FcQa0TDEOUY4uMNFtjlgo0PC+iU2aXi41abPWwHkQ9F/pYR3XQ5W/FilU6ozLLUrfdj5gnBkyEcFadTw==}
+  '@platformatic/scalar-theme@3.13.0':
+    resolution: {integrity: sha512-u7B+7elYcLnUvCxAG6kG+yMocQ7aHBxIYeDY2EZ/kAv5AfliyR3ANKoTIrMxe504NwaLw+Lu2RSIxzvuiVbuRw==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/service@3.12.0':
-    resolution: {integrity: sha512-BTjJMNmWMqGQVMjpmyg7pbQLhEipu9SWWuwDYQ4huKymUqDC8OH52+bXSDfUvQWhT3WwLauhVthxLlpsjgxctQ==}
+  '@platformatic/service@3.13.0':
+    resolution: {integrity: sha512-8CQrLk8Hqb7NpCQs8SUFl8hfruy7nQYRj9UM0h/DXmbiqF/iEuDf3ChTERExMCD2x8/6ji2DXIX4zxjzwB3Vlw==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/sql-events@3.12.0':
-    resolution: {integrity: sha512-wZEUpfLatqnZNO50V4WZQmhhnTTDox+v/dvXdMpL1hcive2R0r12mIJsZWSkC/Uc9/wbBzPEoX0E0ED7mnphNQ==}
+  '@platformatic/sql-events@3.13.0':
+    resolution: {integrity: sha512-CJn+St4P8JrnXl2dihhnEmCU5dpU+7oNcs/orI91cXFXCWz0GjYWOi8tV/q4MADwMwdQ+7ZZ7H2y0KbiPI0Pig==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/sql-graphql@3.12.0':
-    resolution: {integrity: sha512-LBPPPGooJtEEnOCAuW2qzwImzX6JjuEMI6ixw6/CZQmKTFf06V2mkiyWOe31oumv+1NE9xYex5R6J5NaM+UOhA==}
+  '@platformatic/sql-graphql@3.13.0':
+    resolution: {integrity: sha512-5ZY/0U2oO90gGT8SOvjdNAflwOM2Rl+c6tOPUpRbv2MrLH9dbSdt9rVQa/WjsMKwe+ZuuA2O+u8xR9Tv1Z+P5w==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/sql-json-schema-mapper@3.12.0':
-    resolution: {integrity: sha512-gSW9Er1/A2/kF/2Yf3oQfT/OTYDJ3kKUmcsRAo31MqwghmQS6VZQarQTpDofXw8SG+GU785enxVLARZvVHZ2+Q==}
+  '@platformatic/sql-json-schema-mapper@3.13.0':
+    resolution: {integrity: sha512-Nmi2isbjQIlqaKOSZIDhvd9sII9Ug/9eaf1DO6phM3khXjXAp+DQomztutACaR23+dY4Tg9/zW4kRl5GRP5rsQ==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/sql-mapper@3.12.0':
-    resolution: {integrity: sha512-5012TeYX1n/NE0fzzYPevkRk/pdBTsjbL+wFRnN2Y2Ohz74RF9vRzRdf4whXseQcxyWqYGUj7pTXqTEstxxenw==}
+  '@platformatic/sql-mapper@3.13.0':
+    resolution: {integrity: sha512-lzLY0/BKMuCDPJ636sc0sAnA+5t2WGFyIgRd/1cL0qf9SkCjhIVa40uWmbRW5bjeSLfrlyPKhaLFVQBJb5ev2w==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/sql-openapi@3.12.0':
-    resolution: {integrity: sha512-6qFwEtHEX3AkH45T9cWBJNpQk0xfkiWQzbT7/iuR/x0x288hu5Lr5qDTYBsRVMb3RG7rEZNBNSQO77Qdm0botQ==}
+  '@platformatic/sql-openapi@3.13.0':
+    resolution: {integrity: sha512-6oL4o3+dURxfInoJQ3djR655xy40dLa4YdK+2RyFYAi9VinpSrw7T/0zM9r3UHWCQ6sorlywmbjNwkTO3sKTyA==}
     engines: {node: '>=22.19.0'}
 
-  '@platformatic/telemetry@3.12.0':
-    resolution: {integrity: sha512-fLXBTYQc7HYZDJHgtqxP1ZHfWDagxaQUZ0upwK916YdrW35IZYhtWY2x4KlGEDtWrPmcdVsQmYuoFCNYyszmqA==}
+  '@platformatic/telemetry@3.13.0':
+    resolution: {integrity: sha512-jHxcjJwTMA/WYaFNL7xjtNW5uCmAvOt/pjh3f1ul50lAK+fPjcWGZ4966+dNRZlbB9p+TGCELmzbUL3G7wJmYw==}
     engines: {node: '>=22.19.0'}
 
   '@protobufjs/aspromise@1.1.2':
@@ -1779,8 +1779,8 @@ packages:
     peerDependencies:
       graphql: '>=15'
 
-  graphql-scalars@1.24.2:
-    resolution: {integrity: sha512-FoZ11yxIauEnH0E5rCUkhDXHVn/A6BBfovJdimRZCQlFCl+h7aVvarKmI15zG4VtQunmCDdqdtNs6ixThy3uAg==}
+  graphql-scalars@1.25.0:
+    resolution: {integrity: sha512-b0xyXZeRFkne4Eq7NAnL400gStGqG/Sx9VqX0A05nHyEbv57UJnWKsjNnrpVqv5e/8N1MUxkt0wwcRXbiyKcFg==}
     engines: {node: '>=10'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
@@ -3904,13 +3904,13 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@platformatic/basic@3.12.0':
+  '@platformatic/basic@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
-      '@platformatic/foundation': 3.12.0
-      '@platformatic/itc': 3.12.0
-      '@platformatic/metrics': 3.12.0
-      '@platformatic/telemetry': 3.12.0
+      '@platformatic/foundation': 3.13.0
+      '@platformatic/itc': 3.13.0
+      '@platformatic/metrics': 3.13.0
+      '@platformatic/telemetry': 3.13.0
       execa: 9.6.0
       fast-json-patch: 3.1.1
       pino: 9.13.1
@@ -3924,7 +3924,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@platformatic/db-authorization@3.12.0':
+  '@platformatic/db-authorization@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/jwt': 9.1.0
@@ -3933,12 +3933,12 @@ snapshots:
       leven: 3.1.0
       undici: 7.16.0
 
-  '@platformatic/db-core@3.12.0(typescript@5.9.3)':
+  '@platformatic/db-core@3.13.0(typescript@5.9.3)':
     dependencies:
-      '@platformatic/sql-events': 3.12.0
-      '@platformatic/sql-graphql': 3.12.0
-      '@platformatic/sql-mapper': 3.12.0(typescript@5.9.3)
-      '@platformatic/sql-openapi': 3.12.0(typescript@5.9.3)
+      '@platformatic/sql-events': 3.13.0
+      '@platformatic/sql-graphql': 3.13.0
+      '@platformatic/sql-mapper': 3.13.0(typescript@5.9.3)
+      '@platformatic/sql-openapi': 3.13.0(typescript@5.9.3)
       fastify-plugin: 5.1.0
     transitivePeerDependencies:
       - bufferutil
@@ -3948,7 +3948,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@platformatic/db@3.12.0(typescript@5.9.3)':
+  '@platformatic/db@3.13.0(typescript@5.9.3)':
     dependencies:
       '@fastify/accepts': 5.0.3
       '@fastify/basic-auth': 6.2.0
@@ -3957,17 +3957,17 @@ snapshots:
       '@fastify/error': 4.2.0
       '@fastify/static': 8.2.0
       '@fastify/swagger': 9.5.2
-      '@platformatic/basic': 3.12.0
-      '@platformatic/db-authorization': 3.12.0
-      '@platformatic/db-core': 3.12.0(typescript@5.9.3)
-      '@platformatic/foundation': 3.12.0
-      '@platformatic/service': 3.12.0(typescript@5.9.3)
-      '@platformatic/sql-events': 3.12.0
-      '@platformatic/sql-graphql': 3.12.0
-      '@platformatic/sql-json-schema-mapper': 3.12.0
-      '@platformatic/sql-mapper': 3.12.0(typescript@5.9.3)
-      '@platformatic/sql-openapi': 3.12.0(typescript@5.9.3)
-      '@platformatic/telemetry': 3.12.0
+      '@platformatic/basic': 3.13.0
+      '@platformatic/db-authorization': 3.13.0
+      '@platformatic/db-core': 3.13.0(typescript@5.9.3)
+      '@platformatic/foundation': 3.13.0
+      '@platformatic/service': 3.13.0(typescript@5.9.3)
+      '@platformatic/sql-events': 3.13.0
+      '@platformatic/sql-graphql': 3.13.0
+      '@platformatic/sql-json-schema-mapper': 3.13.0
+      '@platformatic/sql-mapper': 3.13.0(typescript@5.9.3)
+      '@platformatic/sql-openapi': 3.13.0(typescript@5.9.3)
+      '@platformatic/telemetry': 3.13.0
       camelcase: 6.3.0
       close-with-grace: 2.3.0
       code-block-writer: 13.0.3
@@ -3997,7 +3997,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@platformatic/foundation@3.12.0':
+  '@platformatic/foundation@3.13.0':
     dependencies:
       '@fastify/deepmerge': 2.0.2
       '@fastify/error': 4.2.0
@@ -4016,10 +4016,10 @@ snapshots:
       undici: 7.11.0
       yaml: 2.8.1
 
-  '@platformatic/generators@3.12.0':
+  '@platformatic/generators@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
-      '@platformatic/foundation': 3.12.0
+      '@platformatic/foundation': 3.13.0
       change-case-all: 2.1.0
       execa: 9.6.0
       fastify: 5.6.1
@@ -4030,19 +4030,19 @@ snapshots:
     dependencies:
       prom-client: 15.1.3
 
-  '@platformatic/itc@3.12.0':
+  '@platformatic/itc@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
       '@watchable/unpromise': 1.0.2
 
-  '@platformatic/metrics@3.12.0':
+  '@platformatic/metrics@3.13.0':
     dependencies:
       '@platformatic/http-metrics': 0.2.1
       prom-client: 15.1.3
 
-  '@platformatic/scalar-theme@3.12.0': {}
+  '@platformatic/scalar-theme@3.13.0': {}
 
-  '@platformatic/service@3.12.0(typescript@5.9.3)':
+  '@platformatic/service@3.13.0(typescript@5.9.3)':
     dependencies:
       '@fastify/accepts': 5.0.3
       '@fastify/autoload': 6.3.1
@@ -4052,12 +4052,12 @@ snapshots:
       '@fastify/static': 8.2.0
       '@fastify/swagger': 9.5.2
       '@fastify/under-pressure': 9.0.3
-      '@platformatic/basic': 3.12.0
-      '@platformatic/foundation': 3.12.0
-      '@platformatic/generators': 3.12.0
-      '@platformatic/metrics': 3.12.0
-      '@platformatic/scalar-theme': 3.12.0
-      '@platformatic/telemetry': 3.12.0
+      '@platformatic/basic': 3.13.0
+      '@platformatic/foundation': 3.13.0
+      '@platformatic/generators': 3.13.0
+      '@platformatic/metrics': 3.13.0
+      '@platformatic/scalar-theme': 3.13.0
+      '@platformatic/telemetry': 3.13.0
       '@scalar/fastify-api-reference': 1.34.6(typescript@5.9.3)
       '@types/node': 22.18.10
       '@types/ws': 8.18.1
@@ -4090,7 +4090,7 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@platformatic/sql-events@3.12.0':
+  '@platformatic/sql-events@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
       camelcase: 6.3.0
@@ -4100,15 +4100,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@platformatic/sql-graphql@3.12.0':
+  '@platformatic/sql-graphql@3.13.0':
     dependencies:
       '@fastify/error': 4.2.0
       '@mercuriusjs/federation': 5.0.0
-      '@platformatic/foundation': 3.12.0
+      '@platformatic/foundation': 3.13.0
       camelcase: 6.3.0
       fastify-plugin: 5.1.0
       graphql: 16.11.0
-      graphql-scalars: 1.24.2(graphql@16.11.0)
+      graphql-scalars: 1.25.0(graphql@16.11.0)
       graphql-type-json: 0.3.2(graphql@16.11.0)
       inflected: 2.1.0
       mercurius: 16.5.0(graphql@16.11.0)
@@ -4117,12 +4117,12 @@ snapshots:
       - monocart-coverage-reports
       - utf-8-validate
 
-  '@platformatic/sql-json-schema-mapper@3.12.0':
+  '@platformatic/sql-json-schema-mapper@3.13.0':
     dependencies:
       code-block-writer: 13.0.3
       safe-identifier: 0.4.2
 
-  '@platformatic/sql-mapper@3.12.0(typescript@5.9.3)':
+  '@platformatic/sql-mapper@3.13.0(typescript@5.9.3)':
     dependencies:
       '@databases/mysql': 7.0.0(typescript@5.9.3)
       '@databases/pg': 5.5.0(typescript@5.9.3)
@@ -4130,8 +4130,8 @@ snapshots:
       '@fastify/error': 4.2.0
       '@hapi/topo': 6.0.2
       '@matteo.collina/sqlite-pool': 0.6.0
-      '@platformatic/foundation': 3.12.0
-      '@platformatic/telemetry': 3.12.0
+      '@platformatic/foundation': 3.13.0
+      '@platformatic/telemetry': 3.13.0
       async-cache-dedupe: 2.2.0
       camelcase: 6.3.0
       fastify-plugin: 5.1.0
@@ -4141,14 +4141,14 @@ snapshots:
       - supports-color
       - typescript
 
-  '@platformatic/sql-openapi@3.12.0(typescript@5.9.3)':
+  '@platformatic/sql-openapi@3.13.0(typescript@5.9.3)':
     dependencies:
       '@fastify/deepmerge': 2.0.2
       '@fastify/error': 4.2.0
       '@fastify/swagger': 9.5.2
-      '@platformatic/foundation': 3.12.0
-      '@platformatic/scalar-theme': 3.12.0
-      '@platformatic/sql-json-schema-mapper': 3.12.0
+      '@platformatic/foundation': 3.13.0
+      '@platformatic/scalar-theme': 3.13.0
+      '@platformatic/sql-json-schema-mapper': 3.13.0
       '@scalar/fastify-api-reference': 1.34.6(typescript@5.9.3)
       camelcase: 6.3.0
       fastify-plugin: 5.1.0
@@ -4157,7 +4157,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@platformatic/telemetry@3.12.0':
+  '@platformatic/telemetry@3.13.0':
     dependencies:
       '@fastify/swagger': 9.5.2
       '@opentelemetry/api': 1.9.0
@@ -4171,7 +4171,7 @@ snapshots:
       '@opentelemetry/sdk-node': 0.203.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/semantic-conventions': 1.36.0
-      '@platformatic/foundation': 3.12.0
+      '@platformatic/foundation': 3.13.0
       fast-uri: 3.1.0
       fastify-plugin: 5.1.0
     transitivePeerDependencies:
@@ -5569,7 +5569,7 @@ snapshots:
       lodash.merge: 4.6.2
       lodash.mergewith: 4.6.2
 
-  graphql-scalars@1.24.2(graphql@16.11.0):
+  graphql-scalars@1.25.0(graphql@16.11.0):
     dependencies:
       graphql: 16.11.0
       tslib: 2.8.1

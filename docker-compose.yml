@@ -3,6 +3,6 @@ services:
   postgresql:
     ports:
       - "5432:5432"
-    image: "postgres:17-alpine"
+    image: "postgres:18-alpine"
     environment:
       - POSTGRES_PASSWORD=postgres

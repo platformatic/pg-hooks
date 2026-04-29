@@ -46,8 +46,8 @@ importers:
         specifier: ^0.13.0
         version: 0.13.0(eslint@9.39.4)(typescript@5.9.3)
       undici:
-        specifier: ^7.15.0
-        version: 7.25.0
+        specifier: ^8.0.0
+        version: 8.1.0
 
 packages:
 
@@ -2867,6 +2867,10 @@ packages:
   undici@7.25.0:
     resolution: {integrity: sha512-xXnp4kTyor2Zq+J1FfPI6Eq3ew5h6Vl0F/8d9XU5zZQf1tX9s2Su1/3PiMmUANFULpmksxkClamIZcaUqryHsQ==}
     engines: {node: '>=20.18.1'}
+
+  undici@8.1.0:
+    resolution: {integrity: sha512-E9MkTS4xXLnRPYqxH2e6Hr2/49e7WFDKczKcCaFH4VaZs2iNvHMqeIkyUAD9vM8kujy9TjVrRlQ5KkdEJxB2pw==}
+    engines: {node: '>=22.19.0'}
 
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
@@ -6565,6 +6569,8 @@ snapshots:
   undici@7.24.0: {}
 
   undici@7.25.0: {}
+
+  undici@8.1.0: {}
 
   unicorn-magic@0.3.0: {}
 

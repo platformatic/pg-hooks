@@ -31,8 +31,8 @@ importers:
         specifier: ^10.1.3
         version: 10.1.3
       cleaner-spec-reporter:
-        specifier: ^0.5.0
-        version: 0.5.0
+        specifier: ^1.0.0
+        version: 1.0.3
       eslint:
         specifier: ^9.21.0
         version: 9.39.4
@@ -1028,9 +1028,9 @@ packages:
     resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
     engines: {node: '>=6'}
 
-  cleaner-spec-reporter@0.5.0:
-    resolution: {integrity: sha512-YOVxazH6MhVev7P/E6aw8cUAm757t83ELBHpo7cehGfIkReln3CH49zbJ7OMbDuqdvfDgeafXvS2OfvbJUmL2g==}
-    engines: {node: '>= 20.18.0'}
+  cleaner-spec-reporter@1.0.3:
+    resolution: {integrity: sha512-LgsmrqWRVLcfpyom+A50ukifqg0To+G3UJwKLg/C9r+flm+3MZQQe2MpX4T1fRhMV9VPe+8JuTkGU2gp375G2A==}
+    engines: {node: '>= 22.21.0'}
 
   cli-cursor@4.0.0:
     resolution: {integrity: sha512-VGtlMu3x/4DOtIUwEkRezxUZ2lBacNJCHash0N0WeZDBS+7Ux1dm3XWAgWYxLJFMMdOeXMHXorshEFhbMSGelg==}
@@ -2883,6 +2883,7 @@ packages:
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-to-istanbul@9.3.0:
@@ -4449,7 +4450,7 @@ snapshots:
 
   clean-stack@2.2.0: {}
 
-  cleaner-spec-reporter@0.5.0: {}
+  cleaner-spec-reporter@1.0.3: {}
 
   cli-cursor@4.0.0:
     dependencies:
